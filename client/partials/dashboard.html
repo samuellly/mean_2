@@ -1,0 +1,49 @@
+<style type="text/css">
+    li {
+        margin: 0px;
+        list-style-type: none;
+    }
+
+    .nav li {
+        display: inline-block;
+    }
+</style>
+<div id="header">
+<div class="container">
+
+<div ng-controller='dashboardController'id="" class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="index.html"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
+  <a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+</a>
+    <ul id="topMenu" class="nav pull-right">
+        <li><a href="#!/">Dashboard</a></li>
+        <li><a href="#!/products">Products</a></li>
+        <li><a href="#!/customers">Customers</a></li>
+        <li><a href="#!/orders">Orders</a></li>
+    </ul>
+    <label>Search: <input ng-model="searchText"></label>
+  </div>
+
+    <h3>Products</h3>
+    <ul ng-repeat="product in products | filter:searchText track by $index ">
+        <li> {{product.name}}</li>
+        <li> {{product.quantity}} left</li>
+    </ul>
+    <h3>Orders</h3>
+     <div ng-repeat="order in orders | filter:searchText track by $index ">
+      <p>{{order._customer.name}} purchased {{order.quantity}} {{order._product.name}} at {{order.created_at}}</p>
+    </div>
+
+    <h3>Customers</h3>
+     <div ng-repeat="customer in customers | filter:searchText track by $index ">
+      <p>{{customer.name}} joined the store at {{customer.created_at}}</p>
+    </div>
+</div>
+</div>
+</div>
+
+<input type='text' placeholder="enter name"

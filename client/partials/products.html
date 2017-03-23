@@ -1,0 +1,75 @@
+<style type="text/css">
+  p {
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+    color: red;
+  }
+  .nav li{
+    display: inline-block;
+  }
+</style>
+<div id="header">
+<div class="container">
+<div ng-controller='productController'id="" class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="index.html"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
+  <a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
+  <span class="icon-bar"></span>
+  <span class="icon-bar"></span>
+  <span class="icon-bar"></span>
+</a>
+    <ul id="topMenu" class="nav pull-right">
+        <li><a href="#!/">Dashboard</a></li>
+        <li><a href="#!/products">Products</a></li>
+        <li><a href="#!/customers">Customers</a></li>
+        <li><a href="#!/orders">Orders</a></li>
+    </ul>
+    <label>Search: <input ng-model="searchText"></label>
+  </div>
+     <p ng-hide ="DNError">{{duplicateNameError}}</p>
+      <p ng-hide ="APError">{{productError}}</p>
+      <p ng-hide ="ADError">{{descriptionError}}</p>
+      <p ng-hide ="QError">{{quantityError}}</p>
+      <form name = "productForm" ng-submit = "addProduct()">
+        Product Name : <input type = "text" name = "name" ng-model = 'product.name' required>
+          <hr />
+        Product Description : <input type = "text" name = "description" ng-model = 'product.description' required>
+          <hr />
+        Initial Quantity : <input type = "number" ng-model = 'product.quantity' required>
+        <input type = "submit" value = "Add Product">
+      </form>
+
+    <form ng-submit = "onFileSelect()">
+      <input type = "text" ng-model = "product.name">
+      Upload <input type="file" ngf-select ngf-pattern = "'image/*'" ngf-accept="'image/*'"  ng-model = 'product.image' ng-file-select="($files)">
+      <input type = "submit" value = "click me">
+    </form>
+
+ <!--    <form ng-app="fileUpload" ng-controller="MyCtrl" name="form">
+      Single Image with validations
+      <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+        ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+        ngf-resize="{width: 100, height: 100}">Select</div>
+      Multiple files
+      <div class="button" ngf-select ng-model="files" ngf-multiple="true">Select</div>
+      Drop files: <div ngf-drop ng-model="files" class="drop-box">Drop</div>
+      <button type="submit" ng-click="onFileSelect()">submit</button>
+    </form> -->
+
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Actions</th>
+          <th>Photo</th>
+        </tr>
+        <tr ng-repeat="product in products | filter:searchText:strict track by $index ">
+          <td>{{ product.name }}</td>
+          <td>{{ product.quantity }}</td>
+          <td><button ng-click="remove(product._id);"> Remove Product</button></td>
+        </tr>
+      </table>
+</div>
+</div>
+</div>
